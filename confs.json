@@ -1,0 +1,224 @@
+[{
+  "_id": {
+    "$oid": "63de8972f17fe026ba7cfd06"
+  },
+  "order": {
+    "$numberDecimal": "3"
+  },
+  "active": true,
+  "type": "newsSource",
+  "category": "Uutiset",
+  "title": "YLE",
+  "url": "http://yle.fi/uutiset/rss/paauutiset.xml",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "63de89ebf17fe026ba7cfd1d"
+  },
+  "order": {
+    "$numberDecimal": "20"
+  },
+  "active": true,
+  "type": "newsSource",
+  "category": "IT",
+  "title": "DigiToday",
+  "url": "http://www.digitoday.fi/feeds/Digitoday.xml",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "63e4aed75f400c1ed2e1d900"
+  },
+  "order": {
+    "$numberDecimal": "31"
+  },
+  "active": true,
+  "type": "newsSource",
+  "title": "BBC Tech",
+  "url": "http://feeds.bbci.co.uk/news/technology/rss.xml",
+  "__v": 0,
+  "category": "Tiede ja tekniikka"
+},
+{
+  "_id": {
+    "$oid": "63de8921f17fe026ba7cfcea"
+  },
+  "order": {
+    "$numberDecimal": "1"
+  },
+  "active": true,
+  "type": "newsSource",
+  "category": "Uutiset",
+  "title": "HS",
+  "url": "http://www.hs.fi/rss/tuoreimmat.xml",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "63de8939f17fe026ba7cfced"
+  },
+  "order": {
+    "$numberDecimal": "2"
+  },
+  "active": true,
+  "type": "newsSource",
+  "title": "MTV",
+  "url": "https://api.mtvuutiset.fi/mtvuutiset/api/feed/rss/uutiset_uusimmat",
+  "__v": 0,
+  "category": "Uutiset"
+},
+{
+  "_id": {
+    "$oid": "63e4ae6e5f400c1ed2e1d8f8"
+  },
+  "order": {
+    "$numberDecimal": "21"
+  },
+  "active": false,
+  "type": "newsSource",
+  "category": "IT",
+  "title": "TiVi",
+  "url": "http://www.tietoviikko.fi/rss.xml",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "63e4afa05f400c1ed2e1d92f"
+  },
+  "order": {
+    "$numberDecimal": "25"
+  },
+  "active": true,
+  "type": "newsSource",
+  "category": "Pelit",
+  "title": "Muropaketti",
+  "url": "https://muropaketti.com/feed/",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "63e4b0645f400c1ed2e1d93b"
+  },
+  "order": {
+    "$numberDecimal": "22"
+  },
+  "active": true,
+  "type": "newsSource",
+  "category": "IT",
+  "title": "Digital Trends",
+  "url": "https://www.digitaltrends.com/feed/",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "63e4aff05f400c1ed2e1d935"
+  },
+  "order": {
+    "$numberDecimal": "35"
+  },
+  "active": true,
+  "type": "newsSource",
+  "category": "Autot",
+  "title": "Jalopnik",
+  "url": "https://jalopnik.com/rss",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "63e4b00c5f400c1ed2e1d937"
+  },
+  "order": {
+    "$numberDecimal": "36"
+  },
+  "active": true,
+  "type": "newsSource",
+  "category": "Autot",
+  "title": "AutoBild",
+  "url": "http://autobild.fi/rss.xml",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "63e4aee65f400c1ed2e1d904"
+  },
+  "order": {
+    "$numberDecimal": "32"
+  },
+  "active": false,
+  "type": "newsSource",
+  "__v": 0,
+  "url": "http://feeds.wired.com/wired/",
+  "title": "Wired",
+  "category": "Tiede ja tekniikka"
+},
+{
+  "_id": {
+    "$oid": "63e4af695f400c1ed2e1d92d"
+  },
+  "order": {
+    "$numberDecimal": "41"
+  },
+  "active": true,
+  "type": "newsSource",
+  "category": "Talous",
+  "title": "MTV Talous",
+  "url": "https://api.mtvuutiset.fi/mtvuutiset/api/feed/rss/uutiset_talous",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "63e4afb65f400c1ed2e1d931"
+  },
+  "order": {
+    "$numberDecimal": "26"
+  },
+  "active": true,
+  "type": "newsSource",
+  "category": "Pelit",
+  "title": "Pelaajalehti",
+  "url": "https://www.pelaajalehti.com/rss/uusimmat.xml",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "63e4b0395f400c1ed2e1d939"
+  },
+  "order": {
+    "$numberDecimal": "35.5"
+  },
+  "active": true,
+  "type": "newsSource",
+  "category": "Autot",
+  "title": "Autotoday",
+  "url": "https://autotoday.fi/feed/",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "63e4aec25f400c1ed2e1d8fe"
+  },
+  "order": {
+    "$numberDecimal": "30"
+  },
+  "active": true,
+  "type": "newsSource",
+  "category": "Tiede ja tekniikka",
+  "title": "TM",
+  "url": "http://tekniikanmaailma.fi/feed/",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "63e4b0925f400c1ed2e1d93d"
+  },
+  "order": {
+    "$numberDecimal": "55"
+  },
+  "active": true,
+  "type": "newsSource",
+  "category": "Videot",
+  "title": "Bad Obsession Motorsport",
+  "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCHvBHWBzzB7NyU5tIiEZHBg",
+  "__v": 0
+}]
