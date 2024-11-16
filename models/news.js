@@ -12,12 +12,12 @@ const newsSchema = mongoose.Schema({
         },
         published: {
           type: Date,
-          required: true,
+          required: true
         },
         title: {
           type: String,
           required: true,
-          validate: /^[\w\s!"#\$%&'\(\)\*\+,\-\.\/:;<=>\?@\[\\\]^_`\{\|\}~öäå€–—\xADλπαβγδεΣΩÆæØøÜüŠšŽžß”]*$/i,    
+          validate: /^[\w\s!"#\$%&'\(\)\*\+,\-\.\/:;<=>\?@\[\\\]^_`\{\|\}~öäå€–—\xADλπαβγδεΣΩÆæØøÜüŠšŽžß”]*$/i,
           minlength: 1,
           maxlength: 1024,
           unique: false
@@ -28,7 +28,7 @@ const newsSchema = mongoose.Schema({
           validate: /^[\w\s!"#\$%&'\(\)\*\+,\-\.\/:;<=>\?@\[\\\]^_`\{\|\}~öäå€–—\xADλπαβγδεΣΩÆæØøÜüŠšŽžß”]*$/i,
           minlength: 0,
           maxlength: 4096,
-          unique: false  
+          unique: false
         },
         url: {
           type: String,
@@ -36,7 +36,7 @@ const newsSchema = mongoose.Schema({
           validate: /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.,~#?&\/=]*)$/,
           minlength: 0,
           maxlength: 2048,
-          unique: false 
+          unique: false
         },
         imgurl: {
           type: String,
@@ -44,8 +44,8 @@ const newsSchema = mongoose.Schema({
           validate: /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.,~#?&\/=]*)$/,
           minlength: 1,
           maxlength: 2048,
-          unique: false 
-        } 
+          unique: false
+        }
       }
     ]
   },
@@ -58,7 +58,7 @@ const newsSchema = mongoose.Schema({
   }
 })
 
-module.exports =  mongoose.model('News', newsSchema)
-
-
-
+module.exports = mongoose.model(
+  'News',
+  newsSchema
+)
