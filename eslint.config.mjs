@@ -8,7 +8,8 @@ export default [
   {files: ['**/*.js'],
     languageOptions: {sourceType: 'commonjs'}},
   {languageOptions: {globals: {...globals.browser,
-    ...globals.node}}},
+    ...globals.node,
+    ...globals.jest}}},
   pluginReact.configs.flat.recommended,
   stylisticJs.configs['all-flat'],
   {

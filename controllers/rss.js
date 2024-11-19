@@ -2,20 +2,26 @@ const rssRouter = require('express').Router()
 const axios = require('axios')
 const convert = require('xml-js')
 
-// const config = require('../utils/config')
+const config = require('../utils/config')
 const newsTools = require('../utils/newsTools')
 const purify = require('../utils/purify')
 const News = require('../models/news')
 const Conf = require('../models/conf')
 const confs = require('../confs.json')
+const confsTest = require('../confs.test.json')
+confsTest
 
-/*
- * rssRouter.get('/test/:title', async (request, response, next) => {
- *  (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test')
- *    ? response.sendFile(config.RSS_BASE_URL + request.params.title.toLowerCase() + '.rss')
- *    : response.status(401).json({ error: 'No access rights' })
- *})
- */
+
+rssRouter.get(
+  '/test/:title',
+  async (request, response) => {
+
+    process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test'
+      ? response.sendFile(config.RSS_BASE_URL + request.params.title.toLowerCase() + '.rss')
+      : response.status(401).json({error: 'No access rights'})
+
+  }
+)
 
 rssRouter.get(
   '/:id',
@@ -35,8 +41,6 @@ rssRouter.get(
           spaces: 4
         }
       ))
-
-      console.log(datajs)
 
       const news = new News({
         items: [],
@@ -114,7 +118,6 @@ rssRouter.get(
 
     }
 
-
     const conf = new Conf({
       _id: request.params.id,
       type: 'newsSource'
@@ -126,7 +129,22 @@ rssRouter.get(
 
     } else {
 
-      getRSS(confs.filter((o) => o._id['$oid'] === request.params.id)[0])
+      const confFile = process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'production'
+        ? new Conf(confs)
+        : process.env.NODE_ENV === 'test' && new Conf(confsTest)
+
+      /*const error = confFile.validateSync()
+      if (error) {
+
+        next(error)
+
+      } else {*/
+
+      console.log(confFile)
+
+        //getRSS(confFile.filter((o) => o._id['$oid'] === request.params.id)[0])
+
+      //}
 
     }
 
