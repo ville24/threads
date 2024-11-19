@@ -1,13 +1,16 @@
-[{
-  "_id": {
-    "$oid": "63de8972f17fe026ba7cfd06"
-  },
-  "order": {
-    "$numberDecimal": "3"
-  },
-  "active": true,
-  "type": "newsSource",
-  "category": "Uutiset",
-  "title": "rss_1",
-  "__v": 0
-}]
+{
+  "newsSources":
+    [
+      {
+        "_id": "63de8972f17fe026ba7cfd06",
+        "order": {
+          "$numberDecimal": "3"
+        },
+        "active": true,
+        "type": "newsSource",
+        "category": "Uutiset",
+        "title": "rss_1",
+        "__v": 0
+      }
+  ]
+}

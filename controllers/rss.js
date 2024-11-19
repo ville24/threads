@@ -29,9 +29,9 @@ rssRouter.get(
 
     const getRSS = async (item) => {
 
-      const url = process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'production'
+      const url = process.env.NODE_ENV === 'production'
         ? item.url
-        : process.env.NODE_ENV === 'test' && 'http://localhost:' + request.socket.localPort + '/api/rss/test/' + item.title
+        : (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') && 'http://localhost:' + request.socket.localPort + '/api/rss/test/' + item.title
 
       const {data} = await axios(url)
       const datajs = JSON.parse(convert.xml2json(
@@ -129,22 +129,20 @@ rssRouter.get(
 
     } else {
 
-      const confFile = process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'production'
+      const confFile = process.env.NODE_ENV === 'production'
         ? new Conf(confs)
-        : process.env.NODE_ENV === 'test' && new Conf(confsTest)
+        : (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') && new Conf(confsTest)
 
-      /*const error = confFile.validateSync()
+      const error = confFile.validateSync()
       if (error) {
 
         next(error)
 
-      } else {*/
+      } else {
 
-      console.log(confFile)
+        getRSS(confFile.newsSources.filter((o) => o.id === request.params.id)[0])
 
-        //getRSS(confFile.filter((o) => o._id['$oid'] === request.params.id)[0])
-
-      //}
+      }
 
     }
 
