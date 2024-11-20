@@ -9,13 +9,12 @@ const News = require('../models/news')
 const Conf = require('../models/conf')
 const confs = require('../confs.json')
 const confsTest = require('../confs.test.json')
-confsTest
 
 
 rssRouter.get(
   '/test/:title',
   async (request, response) => {
-
+    console.log(config.RSS_BASE_URL + request.params.title.toLowerCase() + '.rss')
     process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test'
       ? response.sendFile(config.RSS_BASE_URL + request.params.title.toLowerCase() + '.rss')
       : response.status(401).json({error: 'No access rights'})
@@ -29,9 +28,13 @@ rssRouter.get(
 
     const getRSS = async (item) => {
 
-      const url = process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'production'
+/*.   const url = process.env.NODE_ENV === 'production'
+*       ? item.url
+ *      : (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'development') && 'http://localhost:' + request.socket.localPort + '/api/rss/test/' + item.title
+ */
+      const url = process.env.NODE_ENV === 'production'
         ? item.url
-        : process.env.NODE_ENV === 'test' && 'http://localhost:' + request.socket.localPort + '/api/rss/test/' + item.title
+        : (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'development') && 'https://super-duper-parakeet-wjwqv65q7qhx49-3004.app.github.dev/api/rss/test/' + item.title
 
       const {data} = await axios(url)
       const datajs = JSON.parse(convert.xml2json(
@@ -129,24 +132,43 @@ rssRouter.get(
 
     } else {
 
-      const confFile = process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'production'
-        ? new Conf(confs)
-        : process.env.NODE_ENV === 'test' && new Conf(confsTest)
+      console.log(confsTest)
+      let confFile = new Conf([{
+        order: { '$numberDecimal': '3' },
+        '_id': '63de8972f17fe026ba7cfd06',
+        active: true, type: 'newsSource',
+        category: 'Uutiset',
+        title: 'rss_1',
+        _v: 0},
+        {
+          order: { '$numberDecimal': '2' },
+          '_id': '63de8972f17fe026ba7cfd05',
+          active: true, type: 'newsSource',
+          category: 'Uutiset2',
+          title: 'rss_2',
+          _v: 0}]
+      )
+      /*confFile = process.env.NODE_ENV === 'production'
+        ? confs
+        : (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') && confsTest*/
 
-      /*const error = confFile.validateSync()
+      console.log(confFile)
+      const error = confFile.validateSync()
+      console.log(error)
+
       if (error) {
 
         next(error)
 
-      } else {*/
+      } else {
+      
+        console.log(confFile)      
 
-      console.log(confFile)
+        getRSS(confFile.filter((o) => o._id['$oid'] === request.params.id)[0])
 
-        //getRSS(confFile.filter((o) => o._id['$oid'] === request.params.id)[0])
+      }
 
-      //}
-
-    }
+    }    
 
   }
 )
