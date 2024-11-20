@@ -28,13 +28,13 @@ rssRouter.get(
 
     const getRSS = async (item) => {
 
-/*.   const url = process.env.NODE_ENV === 'production'
-*       ? item.url
- *      : (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'development') && 'http://localhost:' + request.socket.localPort + '/api/rss/test/' + item.title
+/*    const url = process.env.NODE_ENV === 'production'
+ *      ? item.url
+ *      : (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') && 'http://localhost:' + request.socket.localPort + '/api/rss/test/' + item.title
  */
       const url = process.env.NODE_ENV === 'production'
         ? item.url
-        : (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'development') && 'https://super-duper-parakeet-wjwqv65q7qhx49-3004.app.github.dev/api/rss/test/' + item.title
+        : (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') && 'https://super-duper-parakeet-wjwqv65q7qhx49-3004.app.github.dev/api/rss/test/' + item.title
 
       const {data} = await axios(url)
       const datajs = JSON.parse(convert.xml2json(
@@ -132,39 +132,20 @@ rssRouter.get(
 
     } else {
 
-      console.log(confsTest)
-      let confFile = new Conf([{
-        order: { '$numberDecimal': '3' },
-        '_id': '63de8972f17fe026ba7cfd06',
-        active: true, type: 'newsSource',
-        category: 'Uutiset',
-        title: 'rss_1',
-        _v: 0},
-        {
-          order: { '$numberDecimal': '2' },
-          '_id': '63de8972f17fe026ba7cfd05',
-          active: true, type: 'newsSource',
-          category: 'Uutiset2',
-          title: 'rss_2',
-          _v: 0}]
-      )
-      /*confFile = process.env.NODE_ENV === 'production'
-        ? confs
-        : (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') && confsTest*/
 
-      console.log(confFile)
+      const confFile = process.env.NODE_ENV === 'production'
+        ? new Conf(confs)
+        : (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') && new Conf(confsTest)
+
       const error = confFile.validateSync()
-      console.log(error)
 
       if (error) {
 
         next(error)
 
       } else {
-      
-        console.log(confFile)      
 
-        getRSS(confFile.filter((o) => o._id['$oid'] === request.params.id)[0])
+        getRSS(confFile.newsSources.filter((o) => o.id === request.params.id)[0])
 
       }
 
