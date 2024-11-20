@@ -9,13 +9,12 @@ const News = require('../models/news')
 const Conf = require('../models/conf')
 const confs = require('../confs.json')
 const confsTest = require('../confs.test.json')
-confsTest
 
 
 rssRouter.get(
   '/test/:title',
   async (request, response) => {
-
+    console.log(config.RSS_BASE_URL + request.params.title.toLowerCase() + '.rss')
     process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test'
       ? response.sendFile(config.RSS_BASE_URL + request.params.title.toLowerCase() + '.rss')
       : response.status(401).json({error: 'No access rights'})
@@ -29,9 +28,13 @@ rssRouter.get(
 
     const getRSS = async (item) => {
 
+/*    const url = process.env.NODE_ENV === 'production'
+ *      ? item.url
+ *      : (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') && 'http://localhost:' + request.socket.localPort + '/api/rss/test/' + item.title
+ */
       const url = process.env.NODE_ENV === 'production'
         ? item.url
-        : (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') && 'http://localhost:' + request.socket.localPort + '/api/rss/test/' + item.title
+        : (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') && 'https://super-duper-parakeet-wjwqv65q7qhx49-3004.app.github.dev/api/rss/test/' + item.title
 
       const {data} = await axios(url)
       const datajs = JSON.parse(convert.xml2json(
@@ -129,11 +132,13 @@ rssRouter.get(
 
     } else {
 
+
       const confFile = process.env.NODE_ENV === 'production'
         ? new Conf(confs)
         : (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') && new Conf(confsTest)
 
       const error = confFile.validateSync()
+
       if (error) {
 
         next(error)
@@ -144,7 +149,7 @@ rssRouter.get(
 
       }
 
-    }
+    }    
 
   }
 )
