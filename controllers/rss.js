@@ -1,7 +1,7 @@
 const rssRouter = require('express').Router()
 const axios = require('axios')
 const convert = require('xml-js')
-const fs = require('node:fs');
+const fs = require('node:fs')
 
 const config = require('../utils/config')
 const newsTools = require('../utils/newsTools')
@@ -40,7 +40,7 @@ rssRouter.get(
                   : newsTools.descriptionCut(purify.purifyDescription(item.description._cdata)),
                 published: purify.purifyModified(item.pubDate._text)
               }
-              newItem.imgurl = purify.purifyURL(newsTools.findFixImage({'enclosures': [item.enclosure && item.enclosure._attributes.url],
+              newItem.imgurl = purify.purifyURL(newsTools.findFixImage({'enclosure': item.enclosure && item.enclosure._attributes.url,
                 'media:thumbnail': item['media:thumbnail'] && item['media:thumbnail']._attributes.url,
                 'description': item.description._text
                   ? item.description._text
@@ -84,7 +84,6 @@ rssRouter.get(
 
         }
 
-
         news.items.sort((a, b) => b.published - a.published)
         news.validate()
           .then(() => response.json(news))
@@ -93,48 +92,50 @@ rssRouter.get(
             next(error)
 
           })
+
+      }
+
+      try {
+
+        let dataXML
+        console.log('test')
+        if (process.env.NODE_ENV === 'production') {
+
+          const url = item.url
+          const {data} = await axios(url)
+          dataXML = data
+
+        } else if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
+
+          dataXML = fs.readFileSync(
+            config.RSS_BASE_URL + item.title + '.rss',
+            'utf8'
+          )
+          console.log(dataXML)
+
+        } else {
+
+          next()
+
         }
-
-        try {
-
-          let dataXML
-
-          if (process.env.NODE_ENV === 'production') {
-  
-            const url = item.url
-            const {data} = await axios(url)
-            dataXML = data
-            
-  
+        const datajs = JSON.parse(convert.xml2json(
+          dataXML,
+          {
+            compact: true,
+            spaces: 4
           }
-          else if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
-  
-              dataXML = fs.readFileSync(config.RSS_BASE_URL + item.title + '.rss', 'utf8');
-  
-            }
-          else {
+        ))
 
-            //next()
+        parseDatajs(datajs)
 
-          }
-          const datajs = JSON.parse(convert.xml2json(
-            dataXML,
-            {
-              compact: true,
-              spaces: 4
-            }
-          ))
-  
-          parseDatajs(datajs)
-  
-        } catch(error) {
-          console.log(error)
-  
-            next(error)
-  
-        }
+      } catch (error) {
+
+        next(error)
+
+      }
 
     }
+    console.log('hop')
 
     const conf = new Conf({
       _id: request.params.id,
@@ -159,12 +160,13 @@ rssRouter.get(
         next(error)
 
       } else {
+          console.log('confFile')
 
-        getRSS(confFile.newsSources.filter((o) => o.id === request.params.id)[0])
+          getRSS(confFile.newsSources.filter((o) => o.id === request.params.id)[0])
 
       }
 
-    }    
+    }
 
   }
 )

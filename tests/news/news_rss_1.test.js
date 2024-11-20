@@ -3,7 +3,7 @@ const app = require('../../app')
 const api = supertest(app)
 
 describe(
-  'News HS test',
+  'RSS 2.0 tests',
   () => {
 
     test(
@@ -22,7 +22,7 @@ describe(
     )
 
     test(
-      'Item amount',
+      'Item amount is 30',
       async () => {
 
         const response = await api
@@ -36,7 +36,7 @@ describe(
     )
 
     test(
-      'Content exists',
+      'All content fields exist for all items',
       async () => {
 
         const response = await api
@@ -58,7 +58,7 @@ describe(
     )
 
     test(
-      'Content test',
+      'Content is correct for an item',
       async () => {
 
         const response = await api
@@ -77,3 +77,16 @@ describe(
 
   }
 )
+
+/*
+ * data näkyy oikein
+ * oikea määrä dataa
+ * tulostettu formaatti oikea: json
+ * dataa puuttuu
+ * data korjataan
+ * dataa ei voi korjata
+ * tiedostoa ei löydy
+ * tiedosto ei ole validi XML
+ * lajittelu päivämäärän mukaan toimii
+ * tuki eri formaateille: rss2, atom?
+ */

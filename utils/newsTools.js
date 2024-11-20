@@ -28,13 +28,9 @@ const findFixImage = (item) => {
 
   let img
 
-  if (item.enclosures && item.enclosures[0] && item.enclosures[0].url) {
+  if (item.enclosure && item.enclosure.url) {
 
-    img = item.enclosures[0].url
-
-  } else if (item.enclosures && item.enclosures[0]) {
-
-    img = item.enclosures[0]
+    img = item.enclosure.url
 
   } else if (item['media:thumbnail']) {
 
