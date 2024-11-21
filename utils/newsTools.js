@@ -28,9 +28,9 @@ const findFixImage = (item) => {
 
   let img
 
-  if (item.enclosure && item.enclosure.url) {
+  if (item.enclosure) {
 
-    img = item.enclosure.url
+    img = item.enclosure
 
   } else if (item['media:thumbnail']) {
 

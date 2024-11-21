@@ -160,9 +160,8 @@ rssRouter.get(
         next(error)
 
       } else {
-          console.log('confFile')
 
-          getRSS(confFile.newsSources.filter((o) => o.id === request.params.id)[0])
+        getRSS(confFile.newsSources.filter((o) => o.id === request.params.id)[0])
 
       }
 
