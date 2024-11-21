@@ -22,6 +22,7 @@ jobs:
           node-version: '20'
       - name: 'Create env file'
         run: echo "${{ secrets.ENV_FILE }}" > .env
+      - run: echo "${{ github.workspace }}"
       - run: npm install
       - run: npm run lint
       - run: npm run test
