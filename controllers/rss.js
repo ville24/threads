@@ -98,7 +98,7 @@ rssRouter.get(
       try {
 
         let dataXML
-        console.log('test')
+
         if (process.env.NODE_ENV === 'production') {
 
           const url = item.url
@@ -111,7 +111,6 @@ rssRouter.get(
             config.RSS_BASE_URL + item.title + '.rss',
             'utf8'
           )
-          console.log(dataXML)
 
         } else {
 
@@ -135,7 +134,6 @@ rssRouter.get(
       }
 
     }
-    console.log('hop')
 
     const conf = new Conf({
       _id: request.params.id,
@@ -147,7 +145,6 @@ rssRouter.get(
       next(error)
 
     } else {
-
 
       const confFile = process.env.NODE_ENV === 'production'
         ? new Conf(confs)
