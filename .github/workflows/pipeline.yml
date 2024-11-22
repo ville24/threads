@@ -82,8 +82,6 @@ jobs:
 
     - id: 'deploy'
       uses: 'google-github-actions/deploy-appengine@v2'
-      with:
-        env_vars: PORT=443
 
     - id: 'test'
       run: 'curl "${{ steps.deploy.outputs.version_url }}"'
