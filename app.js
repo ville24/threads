@@ -11,6 +11,15 @@ app.use(express.static('build'))
 app.use(express.json())
 app.use(middleware.requestLogger)
 
+app.get(
+  '/health',
+  (req, res) => {
+
+    res.send('ok')
+
+  }
+)
+
 app.use(
   '/api/rss',
   rssRouter
