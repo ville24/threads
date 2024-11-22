@@ -12,6 +12,10 @@ const requestLogger = (request, response, next) => {
    *logger.info('Body:' + JSON.stringify(request.body))
    *logger.info('---')
    */
+  console.log('Method:' + request.method)
+  console.log('Path:' + request.path)
+  console.log('Body:' + JSON.stringify(request.body))
+  console.log('---')
 
   next()
 
@@ -29,6 +33,8 @@ const errorHandler = (error, request, response) => {
    *logger.error(error.name)
    *logger.error(error.message)
    */
+  console.error(error.name)
+  console.error(error.message)
 
   if (error.name === 'CastError') {
 
