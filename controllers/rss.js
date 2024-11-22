@@ -107,7 +107,6 @@ rssRouter.get(
 
         } else if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
 
-          console.log(config.RSS_BASE_URL + item.title + '.rss')
           dataXML = fs.readFileSync(
             config.RSS_BASE_URL + item.title + '.rss',
             'utf8'

@@ -1,15 +1,17 @@
 const metadata = require('gcp-metadata')
 const {OAuth2Client} = require('google-auth-library')
 
-const logger = require('./logger')
+// const logger = require('./logger')
 const config = require('./config')
 
 const requestLogger = (request, response, next) => {
 
-  logger.info('Method:' + request.method)
-  logger.info('Path:' + request.path)
-  logger.info('Body:' + JSON.stringify(request.body))
-  logger.info('---')
+  /*
+   *logger.info('Method:' + request.method)
+   *logger.info('Path:' + request.path)
+   *logger.info('Body:' + JSON.stringify(request.body))
+   *logger.info('---')
+   */
 
   next()
 
@@ -23,8 +25,10 @@ const unknownEndpoint = (request, response) => {
 
 const errorHandler = (error, request, response) => {
 
-  logger.error(error.name)
-  logger.error(error.message)
+  /*
+   *logger.error(error.name)
+   *logger.error(error.message)
+   */
 
   if (error.name === 'CastError') {
 
