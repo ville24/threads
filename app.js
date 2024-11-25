@@ -2,7 +2,7 @@ const express = require('express')
 const cors = require('cors')
 
 const middleware = require('./utils/middleware')
-const rssRouter = require('./controllers/rss')
+//  const rssRouter = require('./controllers/rss')
 
 const app = express()
 
@@ -20,10 +20,12 @@ app.get(
   }
 )
 
-app.use(
-  '/api/rss',
-  rssRouter
-)
+/*
+ *  app.use(
+ *    '/api/rss',
+ *    rssRouter
+ *  )
+ */
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
