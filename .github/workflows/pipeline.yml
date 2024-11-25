@@ -84,8 +84,15 @@ jobs:
       uses: 'google-github-actions/deploy-appengine@v2'
 
     - id: 'test'
-      run: 'curl "${{ steps.deploy.outputs.version_url }}"'
-  
+#      run: 'curl "${{ steps.deploy.outputs.version_url }}"'
+      run: |
+        echo ${{ steps.deploy.outputs.name }}
+        echo ${{ steps.deploy.outputs.runtime }}
+        echo ${{ steps.deploy.outputs.service_account_email }}
+        echo ${{ steps.deploy.outputs.serving_status }}
+        echo ${{ steps.deploy.outputs.version_id }}
+        echo ${{ steps.deploy.outputs.version_url }}
+
 # tag_release:
 #   needs: [simple_deployment_pipeline]
 #   runs-on: ubuntu-20.04
