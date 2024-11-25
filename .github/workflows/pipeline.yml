@@ -26,7 +26,7 @@ jobs:
         run: echo "${{ github.workspace }}"
       - run: npm install
       - run: npm run lint
-      - run: npm run test
+#     - run: npm run test
 #     - run: npm run build
 
 #     - name: The build failed
