@@ -74,9 +74,11 @@ jobs:
     - id: 'deploy'
       uses: 'google-github-actions/deploy-appengine@v2'
 
-    - id: 'test'
+    - id: 'test_with_curl'
+      run: 'curl "${{ steps.deploy.outputs.version_url }}/health"'
+    
+    - id: 'show_output'
       run: |
-        'curl "${{ steps.deploy.outputs.version_url }}/health"'
         echo ${{ steps.deploy.outputs.name }}
         echo ${{ steps.deploy.outputs.runtime }}
         echo ${{ steps.deploy.outputs.service_account_email }}
