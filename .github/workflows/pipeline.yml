@@ -76,7 +76,7 @@ jobs:
 
     - id: 'test'
       run: |
-        'curl "${{ steps.deploy.outputs.version_url }}"'
+        'curl "${{ steps.deploy.outputs.version_url }}/health"'
         echo ${{ steps.deploy.outputs.name }}
         echo ${{ steps.deploy.outputs.runtime }}
         echo ${{ steps.deploy.outputs.service_account_email }}
