@@ -20,14 +20,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - name: 'Create env file'
-        run: echo "${{ secrets.ENV_FILE }}" > .env
-      - name: 'Working directory'
-        run: echo "${{ github.workspace }}"
+#     - name: 'Create env file'
+#       run: echo "${{ secrets.ENV_FILE }}" > .env
+#     - name: 'Working directory'
+#       run: echo "${{ github.workspace }}"
       - run: npm install
       - run: npm run lint
-#     - run: npm run test
-#     - run: npm run build
+      - run: npm run test
+      - run: npm run build
 
 #     - name: The build failed
 #       uses: stegzilla/discord-notify@v2
@@ -84,7 +84,7 @@ jobs:
       uses: 'google-github-actions/deploy-appengine@v2'
 
     - id: 'test'
-#      run: 'curl "${{ steps.deploy.outputs.version_url }}"'
+#     run: 'curl "${{ steps.deploy.outputs.version_url }}"'
       run: |
         echo ${{ steps.deploy.outputs.name }}
         echo ${{ steps.deploy.outputs.runtime }}
