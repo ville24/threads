@@ -3,7 +3,7 @@ const app = require('../../app')
 const api = supertest(app)
 
 describe(
-  'RSS 2.0 tests',
+  'RSS 2.0 tests 1',
   () => {
 
     test(
@@ -79,10 +79,11 @@ describe(
 )
 
 /*
- * data näkyy oikein
- * oikea määrä dataa
- * tulostettu formaatti oikea: json
+ * data näkyy oikein                  OK
+ * oikea määrä dataa                  OK
+ * tulostettu formaatti oikea: json   OK
  * dataa puuttuu
+ * Data on tyhjää
  * data korjataan
  * dataa ei voi korjata
  * tiedostoa ei löydy

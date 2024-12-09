@@ -7,9 +7,7 @@ const config = require('../utils/config')
 const newsTools = require('../utils/newsTools')
 const purify = require('../utils/purify')
 const News = require('../models/news')
-const Conf = require('../models/conf')
-const confs = require('../confs.json')
-const confsTest = require('../confs.test.json')
+const rssConf = require('./rssConf')
 
 rssRouter.get(
   '/:id',
@@ -129,40 +127,17 @@ rssRouter.get(
 
       } catch (error) {
 
+        console.log('invalid xml')
         next(error)
 
       }
 
     }
 
-    const conf = new Conf({
-      _id: request.params.id,
-      type: 'newsSource'
-    })
-    const error = conf.validateSync()
-    if (error) {
-
-      next(error)
-
-    } else {
-
-      const confFile = process.env.NODE_ENV === 'production'
-        ? new Conf(confs)
-        : (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') && new Conf(confsTest)
-
-      const error = confFile.validateSync()
-
-      if (error) {
-
-        next(error)
-
-      } else {
-
-        getRSS(confFile.newsSources.filter((o) => o.id === request.params.id)[0])
-
-      }
-
-    }
+    getRSS(rssConf(
+      request.params.id,
+      next()
+    ))
 
   }
 )

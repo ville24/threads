@@ -11,6 +11,17 @@
         "category": "Uutiset",
         "title": "rss_1",
         "__v": 0
+      },
+      {
+        "_id": "63de8972f17fe026ba7cfd05",
+        "order": {
+          "$numberDecimal": "2"
+        },
+        "active": true,
+        "type": "newsSource",
+        "category": "Uutiset",
+        "title": "rss_2",
+        "__v": 0
       }
   ]
 }
