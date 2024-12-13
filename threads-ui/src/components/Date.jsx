@@ -1,10 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-Date.propTypes = {
-  value: PropTypes.string.isRequired
-}
-
 const parseRelDate = (dateString) => {
 
   const diff = new Date() - new Date(dateString)
@@ -55,6 +51,11 @@ const parseRelDate = (dateString) => {
 
 }
 
-const Date = (props) => <span>{parseRelDate(props.value)}</span>
+// const Date = (props) => <span>{parseRelDate(props.value)}</span>
+const Date = (props) => <span>{props.value}</span>
+
+Date.propTypes = {
+  value: PropTypes.string.isRequired
+}
 
 export default Date

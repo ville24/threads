@@ -3,6 +3,7 @@ const cors = require('cors')
 
 const middleware = require('./utils/middleware')
 const rssRouter = require('./controllers/rss')
+const confRouter = require('./controllers/conf')
 
 const app = express()
 
@@ -18,6 +19,11 @@ app.get(
     res.send('ok')
 
   }
+)
+
+app.use(
+  '/api/conf',
+  confRouter
 )
 
 app.use(

@@ -5,11 +5,6 @@ import Title from './Title'
 import Description from './Description'
 import Date from './Date'
 
-NewsItem.propTypes = {
-  item: PropTypes.string.isRequired,
-  newsSourceTitle: PropTypes.string.isRequired
-}
-
 const NewsItem = (props) => <div key={props.item._id} className="news-card">
   <div>
     <Title
@@ -18,8 +13,8 @@ const NewsItem = (props) => <div key={props.item._id} className="news-card">
       description={props.item.description}
       url={props.item.url}
       imgUrl={props.item.imgUrl}
-    ></Title>
-    <Description>{props.item.description}</Description>
+    />
+    <Description text={props.item.description} />
     <div>
       <span>{props.newsSourceTitle}</span>
       <span style={ {padding: '0 0.5em'} }>—</span>
@@ -27,5 +22,10 @@ const NewsItem = (props) => <div key={props.item._id} className="news-card">
     </div>
   </div>
 </div>
+
+NewsItem.propTypes = {
+  item: PropTypes.string.isRequired,
+  newsSourceTitle: PropTypes.string.isRequired
+}
 
 export default NewsItem

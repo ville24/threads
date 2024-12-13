@@ -4,7 +4,7 @@
       {
         "_id": "63de8972f17fe026ba7cfd06",
         "order": {
-          "$numberDecimal": "3"
+          "$numberDecimal": "1"
         },
         "active": true,
         "type": "newsSource",
