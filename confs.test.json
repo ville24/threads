@@ -10,6 +10,7 @@
         "type": "newsSource",
         "category": "Uutiset",
         "title": "rss_1",
+        "url": "http://yle.fi/uutiset/rss/paauutiset.xml",
         "__v": 0
       },
       {

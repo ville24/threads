@@ -1,37 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import TitleText from './TitleText'
+
 const Title = (props) => {
-
-  const TitleText = () => {
-
-    if (props.level === '1') {
-
-      return <h1>{props.text}</h1>
-
-    } else if (props.level === '2') {
-
-      return <h2>{props.text}</h2>
-
-    } else if (props.level === '3') {
-
-      return <h3>{props.text}</h3>
-
-    } else if (props.level === '4') {
-
-      return <h4>{props.text}</h4>
-
-    } else if (props.level === '5') {
-
-      return <h5>{props.text}</h5>
-
-    } else {
-
-      return <h6>{props.text}</h6>
-
-    }
-
-  }
 
   return (
     <>
@@ -50,9 +22,9 @@ const Title = (props) => {
                     : props.text + '\n\n' + props.description} />
                 : <div className="imgPlaceholder"></div>
             }
-            <TitleText />
+            <TitleText text={props.text} level={props.level} />
           </a>
-          : <TitleText />
+          : <TitleText text={props.text} level={props.level} />
       }
     </>
   )
@@ -61,10 +33,10 @@ const Title = (props) => {
 
 Title.propTypes = {
   text: PropTypes.string.isRequired,
-  level: PropTypes.number.isOptional,
-  description: PropTypes.string.isOptional,
-  url: PropTypes.string.isOptional,
-  imgUrl: PropTypes.string.isOptional
+  level: PropTypes.number,
+  description: PropTypes.string,
+  url: PropTypes.string,
+  imgUrl: PropTypes.string
 }
 
 export default Title

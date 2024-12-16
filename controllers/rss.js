@@ -13,133 +13,160 @@ rssRouter.get(
   '/:id',
   (request, response, next) => {
 
-    const getRSS = async (item) => {
+    const parseDatajs = (datajs) => {
 
-      const parseDatajs = (datajs) => {
+      const news = new News({
+        items: [],
+        count: 0
+      })
+      if (datajs.rss) {
 
-        const news = new News({
-          items: [],
-          count: 0
+        datajs.rss.channel.item.forEach((item, index) => {
+
+          if (index < 30 && newsTools.contentFilter(item)) {
+
+            const newItem = {
+              _id: purify.purifyID(item.id),
+              title: item.title._text
+                ? purify.purifyTitle(item.title._text)
+                : purify.purifyTitle(item.title._cdata),
+              url: purify.purifyURL(item.link._text),
+              description: item.description && (item.description._text
+                ? newsTools.descriptionCut(purify.purifyDescription(item.description._text))
+                : newsTools.descriptionCut(purify.purifyDescription(item.description._cdata))),
+              published: purify.purifyModified(item.pubDate._text)
+            }
+            newItem.imgurl = purify.purifyURL(newsTools.findFixImage({'enclosure': item.enclosure && item.enclosure._attributes.url,
+              'media:thumbnail': item['media:thumbnail'] && item['media:thumbnail']._attributes.url,
+              'description': item.description && (item.description._text
+                ? item.description._text
+                : item.description._cdata)}))
+            !newItem.imgurl && delete newItem.imgurl
+            news.items.push(newItem)
+            news.count = index + 1
+
+          }
+
         })
-        if (datajs.rss) {
 
-          datajs.rss.channel.item.forEach((item, index) => {
+      }
 
-            if (index < 30 && newsTools.contentFilter(item)) {
+      if (datajs.feed) {
 
-              const newItem = {
-                _id: purify.purifyID(item.id),
-                title: item.title._text
-                  ? purify.purifyTitle(item.title._text)
-                  : purify.purifyTitle(item.title._cdata),
-                url: purify.purifyURL(item.link._text),
-                description: item.description._text
-                  ? newsTools.descriptionCut(purify.purifyDescription(item.description._text))
-                  : newsTools.descriptionCut(purify.purifyDescription(item.description._cdata)),
-                published: purify.purifyModified(item.pubDate._text)
-              }
-              newItem.imgurl = purify.purifyURL(newsTools.findFixImage({'enclosure': item.enclosure && item.enclosure._attributes.url,
-                'media:thumbnail': item['media:thumbnail'] && item['media:thumbnail']._attributes.url,
-                'description': item.description._text
-                  ? item.description._text
-                  : item.description._cdata}))
-              !newItem.imgurl && delete newItem.imgurl
-              news.items.push(newItem)
-              news.count = index + 1
+        datajs.feed.entry.forEach((item, index) => {
 
+          if (index < 30 && newsTools.contentFilter(item)) {
+
+            const newItem = {
+              _id: purify.purifyID(item.id),
+              title: item.title._text
+                ? purify.purifyTitle(item.title._text)
+                : purify.purifyTitle(item.title._cdata),
+              url: purify.purifyURL(item.link._attributes.href),
+              description: newsTools.descriptionCut(purify.purifyDescription(item['media:group']['media:description']._text)),
+              published: purify.purifyModified(item.published._text)
             }
+            newItem.imgurl = purify.purifyURL(newsTools.findFixImage({
+              'enclosures': [item.enclosure && item.enclosure._attributes.url],
+              'media:thumbnail': (item['media:thumbnail'] && item['media:thumbnail']._attributes.url) || (item['media:group']['media:thumbnail'] && item['media:group']['media:thumbnail']._attributes.url)
+            }))
+            !newItem.imgurl && delete newItem.imgurl
+            news.items.push(newItem)
+            news.count = index + 1
+
+          }
+
+        })
+
+      }
+
+
+      news.items.sort((a, b) => b.published - a.published)
+      return news
+
+    }
+
+    const convertXMLtoJSON = (dataXML) => {
+
+      return JSON.parse(convert.xml2json(
+        dataXML,
+        {
+          compact: true,
+          spaces: 4
+        }
+      ))
+
+    }
+
+    let newsSource
+
+    try {
+
+      newsSource = rssConf(request.params.id)
+
+    } catch (error) {
+
+      next(error)
+
+    }
+
+    try {
+
+      if (process.env.NODE_ENV === 'production') {
+
+        const url = newsSource.url
+
+        axios(url)
+          .then((res) => {
+
+            const rssJSON = convertXMLtoJSON(res.data)
+
+            const rssParsed = parseDatajs(rssJSON)
+
+            rssParsed.validate()
+              .then(() => response.json(rssParsed))
+              .catch((error) => {
+
+                next(error)
+
+              })
 
           })
 
-        }
+      } else if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
 
-        if (datajs.feed) {
+        const rssJSON = convertXMLtoJSON(fs.readFileSync(
+          config.RSS_BASE_URL + newsSource.title + '.rss',
+          'utf8'
+        ))
 
-          datajs.feed.entry.forEach((item, index) => {
+        const rssParsed = parseDatajs(rssJSON)
 
-            if (index < 30 && newsTools.contentFilter(item)) {
-
-              const newItem = {
-                _id: purify.purifyID(item.id),
-                title: item.title._text
-                  ? purify.purifyTitle(item.title._text)
-                  : purify.purifyTitle(item.title._cdata),
-                url: purify.purifyURL(item.link._attributes.href),
-                description: newsTools.descriptionCut(purify.purifyDescription(item['media:group']['media:description']._text)),
-                published: purify.purifyModified(item.published._text)
-              }
-              newItem.imgurl = purify.purifyURL(newsTools.findFixImage({
-                'enclosures': [item.enclosure && item.enclosure._attributes.url],
-                'media:thumbnail': (item['media:thumbnail'] && item['media:thumbnail']._attributes.url) || (item['media:group']['media:thumbnail'] && item['media:group']['media:thumbnail']._attributes.url)
-              }))
-              !newItem.imgurl && delete newItem.imgurl
-              news.items.push(newItem)
-              news.count = index + 1
-
-            }
-
-          })
-
-        }
-
-        news.items.sort((a, b) => b.published - a.published)
-        news.validate()
-          .then(() => response.json(news))
+        rssParsed.validate()
+          .then(() => response.json(rssParsed))
           .catch((error) => {
 
             next(error)
 
           })
 
-      }
+      } else {
 
-      try {
-
-        let dataXML
-
-        if (process.env.NODE_ENV === 'production') {
-
-          const url = item.url
-          const {data} = await axios(url)
-          dataXML = data
-
-        } else if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
-
-          dataXML = fs.readFileSync(
-            config.RSS_BASE_URL + item.title + '.rss',
-            'utf8'
-          )
-
-        } else {
-
-          next()
-
-        }
-        const datajs = JSON.parse(convert.xml2json(
-          dataXML,
-          {
-            compact: true,
-            spaces: 4
-          }
-        ))
-
-        parseDatajs(datajs)
-
-      } catch (error) {
-
-        console.log('invalid xml')
-        next(error)
+        throw new Error({
+          name: 'SyntaxError',
+          message: 'Invalid environment'
+        })
 
       }
+
+    } catch (error) {
+
+      next(error)
 
     }
 
-    getRSS(rssConf(
-      request.params.id,
-      next()
-    ))
-
   }
+
 )
 
 module.exports = rssRouter

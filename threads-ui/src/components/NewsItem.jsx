@@ -3,13 +3,13 @@ import PropTypes from 'prop-types'
 
 import Title from './Title'
 import Description from './Description'
-import Date from './Date'
+import Published from './Published'
 
 const NewsItem = (props) => <div key={props.item._id} className="news-card">
   <div>
     <Title
       text={props.item.title}
-      level="3"
+      level={3}
       description={props.item.description}
       url={props.item.url}
       imgUrl={props.item.imgUrl}
@@ -18,7 +18,7 @@ const NewsItem = (props) => <div key={props.item._id} className="news-card">
     <div>
       <span>{props.newsSourceTitle}</span>
       <span style={ {padding: '0 0.5em'} }>—</span>
-      <Date value={props.item.published} />
+      <Published value={props.item.published} />
     </div>
   </div>
 </div>

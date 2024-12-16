@@ -3,7 +3,7 @@ const Conf = require('../models/conf')
 const confs = require('../confs.json')
 const confsTest = require('../confs.test.json')
 
-const rssConf = (id, next) => {
+const rssConf = (id) => {
 
   const conf = new Conf({
     _id: id,
@@ -12,7 +12,7 @@ const rssConf = (id, next) => {
   const error = conf.validateSync()
   if (error) {
 
-    next(error)
+    return error
 
   } else {
 
@@ -24,7 +24,7 @@ const rssConf = (id, next) => {
 
     if (error) {
 
-      next(error)
+      return error
 
     } else {
 

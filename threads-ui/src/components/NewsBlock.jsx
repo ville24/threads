@@ -6,6 +6,7 @@ import {getNewsSources} from '../requests'
 import Title from './Title'
 import NewsTabBar from './NewsTabBar'
 import NewsItems from './NewsItems'
+import Spinner from './Spinner'
 
 const NewsBlock = () => {
 
@@ -17,7 +18,7 @@ const NewsBlock = () => {
 
   if (isPendingNewsSource) {
 
-    return <div>Ladataan...</div>
+    return <Spinner />
 
   }
 
@@ -59,11 +60,10 @@ const NewsBlock = () => {
 
   }
 
-
   return <>
     <Title
       text="Uutiset"
-      level="2"
+      level={2}
     />
     <NewsTabBar
       category={category}

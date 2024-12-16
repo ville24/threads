@@ -8,6 +8,7 @@
     "dev": "NODE_ENV=development nodemon index.js",
     "build": "echo build",
     "test": "NODE_ENV=test jest --verbose --runInBand",
+    "test-one": "NODE_ENV=test jest --verbose --runInBand -- rss_conf.test.js",
     "lint": "eslint ."
   },
   "repository": {

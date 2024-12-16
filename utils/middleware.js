@@ -33,8 +33,14 @@ const errorHandler = (error, request, response) => {
    *logger.error(error.name)
    *logger.error(error.message)
    */
-  console.error(error.name)
-  console.error(error.message)
+  console.error(
+    'error name',
+    error.name
+  )
+  console.error(
+    'error message',
+    error.message
+  )
 
   if (error.name === 'CastError') {
 

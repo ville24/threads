@@ -1,10 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-Icon.propTypes = {
-  type: PropTypes.string.isRequired
-}
-
 const Icon = ({type}) => {
 
   const svg = () => {
@@ -38,6 +34,10 @@ const Icon = ({type}) => {
     <>{ svg() }</>
   )
 
+}
+
+Icon.propTypes = {
+  type: PropTypes.string.isRequired
 }
 
 export default Icon

@@ -7,9 +7,10 @@ import './App.css'
 const App = () => <>
   <Title
     text="News Threads"
-    level="1"
+    level={1}
   />
   <NewsBlock />
+
 </>
 
 

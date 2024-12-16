@@ -12,7 +12,7 @@ const NewsTabBar = (props) => <>
   />
   <NewsTabs
     type="newsSource"
-    tab={props.newsSource}
+    tab={props.newsSource.title}
     tabList={props.newsSources.map((item) => item.title)}
     handleClick={props.handleNewsSourceClick}
   />
@@ -22,7 +22,7 @@ NewsTabBar.propTypes = {
   category: PropTypes.string.isRequired,
   categories: PropTypes.array.isRequired,
   handleCategoryClick: PropTypes.func.isRequired,
-  newsSource: PropTypes.string.isRequired,
+  newsSource: PropTypes.object.isRequired,
   newsSources: PropTypes.array.isRequired,
   handleNewsSourceClick: PropTypes.func.isRequired
 }

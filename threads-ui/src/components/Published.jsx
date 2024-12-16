@@ -51,11 +51,10 @@ const parseRelDate = (dateString) => {
 
 }
 
-// const Date = (props) => <span>{parseRelDate(props.value)}</span>
-const Date = (props) => <span>{props.value}</span>
+const Published = (props) => <span>{parseRelDate(props.value)}</span>
 
-Date.propTypes = {
+Published.propTypes = {
   value: PropTypes.string.isRequired
 }
 
-export default Date
+export default Published
