@@ -24,7 +24,6 @@
     "testPathIgnorePatterns": [
       "e2e-tests"
     ]
-  }
   },
   "devDependencies": {
     "@playwright/test": "^1.49.1",
