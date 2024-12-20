@@ -20,7 +20,11 @@
   "author": "ville24",
   "license": "MIT",
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "e2e-tests"
+    ]
+  }
   },
   "devDependencies": {
     "@playwright/test": "^1.49.1",
