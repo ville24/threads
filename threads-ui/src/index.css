@@ -1,68 +1,149 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+html {
+  scroll-behavior: smooth;
 }
 
 body {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: smaller;
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+h1, h2, h3 {
+  font-weight: 500;
+  color: #404040;
+  line-height: 1.2;
+  margin-bottom: 0;
+}
+
+p {
+  margin: 0.5em 0;
+  line-height: 1.4em;
+}
+
+a {
+  color: #000000;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+img, .imgPlaceholder  {
+  width: 100%;
+  aspect-ratio : 4 / 3;
+  object-fit: cover;
+}
+
+.imgPlaceholder {
+  background: #f8f8f8;
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+  font-family: 'Inter', sans-serif; 
   font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+svg {
+  pointer-events: none;
+  transition: transform 0.5s;
+}
+
+.news-card  {
+  float: left; 
+  width: 24em;
+  height: 30em;
+  padding: 0;
+  box-sizing: border-box;
+  margin-right: 1.0em;
+}
+
+.block-title {
+  padding: 0 0 0.5em 0;
+  margin: 0 0 0.5em 0;
+  border-bottom: 0.05em solid #cccccc;
+}
+
+#root{
+  padding: 1.0em;
+}
+
+.btn {
+  font-size: x-small;
+  text-transform: uppercase;
+  border: 0.15em solid #cccccc;
+  border-radius: 0.3em;
+  padding: 0.5em 1.0em;
+  margin: 0 0.5em 0.5em 0;
+  background: #f0f0f0;
+}
+
+.btn:hover {
+  background: #f0f0f099;
+}
+
+.btn-selected, .btn-selected-pagination {
+  color: #ffffff;
+  border-color: #23768d;
+  background:  #33aacc;
+}
+
+.btn-selected:hover {
+  background: #33aacccc;
+}
+
+.btn-selected-pagination:hover {
+  background:  #33aacc;
+}
+
+.btn-selected polyline {
+  stroke: #ffffff !important;
+}
+
+.loading {
+  animation-name: spin;
+  animation-duration: 2000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg) scale(0.5);
   }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
+  to {
+    transform: rotate(360deg) scale(0.5);
   }
 }
+
+.newsMenu-l1 .btn, .newsMenu-l2 .btn {
+  background: none;
+  border: 0;
+  font-size: small;
+  border-bottom: 1px solid #ccc;
+  border-radius: 0;
+  margin: 0;
+  }
+  
+  .newsMenu-l1 .btn:hover, .newsMenu-l2 .btn:hover {
+  background: #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
+  }
+  
+  .newsMenu-l1 .btn.btn-selected, .newsMenu-l2 .btn-selected {
+  color: #000;
+  border: 1px solid #ccc;
+  border-bottom: 0;
+  font-weight: 600;
+  }
+  
+  .newsMenu-l2 .btn {
+  border: 0;
+  }
+
+  .newsMenu-l2 {
+    margin-bottom: 1.0em;
+  }

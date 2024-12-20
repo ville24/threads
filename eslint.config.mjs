@@ -4,6 +4,10 @@ import stylisticJs from '@stylistic/eslint-plugin-js'
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
+  {ignores: [
+    '*/dist/**',
+    'playwright-report/trace/**'
+  ]},
   {files: ['**/*.{js,mjs,cjs,jsx}']},
   {files: ['**/*.js'],
     languageOptions: {sourceType: 'commonjs'},

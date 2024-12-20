@@ -12,7 +12,7 @@ const NewsItem = (props) => <div key={props.item._id} className="news-card">
       level={3}
       description={props.item.description}
       url={props.item.url}
-      imgUrl={props.item.imgUrl}
+      imgurl={props.item.imgurl}
     />
     <Description text={props.item.description} />
     <div>
@@ -28,7 +28,7 @@ NewsItem.propTypes = {
     _id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired,
-    imgUrl: PropTypes.string,
+    imgurl: PropTypes.string,
     description: PropTypes.string,
     published: PropTypes.string.isRequired
 

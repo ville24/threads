@@ -15,8 +15,8 @@ const Title = (props) => {
               : props.text + '\n\n' + props.description
           }>
             {
-              props.imgUrl
-                ? <img src={props.imgUrl} alt={
+              props.imgurl
+                ? <img src={props.imgurl} alt={
                   !props.description
                     ? props.text
                     : props.text + '\n\n' + props.description} />
@@ -36,7 +36,7 @@ Title.propTypes = {
   level: PropTypes.number,
   description: PropTypes.string,
   url: PropTypes.string,
-  imgUrl: PropTypes.string
+  imgurl: PropTypes.string
 }
 
 export default Title

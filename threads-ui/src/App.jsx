@@ -6,7 +6,6 @@ import {getNewsSources} from './requests'
 import NewsBlock from './components/NewsBlock'
 import Title from './components/Title'
 import Spinner from './components/Spinner'
-import './App.css'
 
 const App = () => {
 
