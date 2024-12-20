@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-const baseUrl = 'http://localhost:3004/'
-// const baseUrl = 'https://super-duper-parakeet-wjwqv65q7qhx49-8081.app.github.dev/'
+// const baseUrl = 'http://localhost:3004/'
+const baseUrl = 'https://super-duper-parakeet-wjwqv65q7qhx49-8081.app.github.dev/'
 
 export const getNewsSources = async () => {
 
@@ -10,9 +10,9 @@ export const getNewsSources = async () => {
 
 }
 
-export const getNewsRSS = async (id) => {
+export const getNewsRSS = async (query) => {
 
-  const response = await axios.get(baseUrl + 'api/rss/' + id.queryKey[1])
+  const response = await axios.get(baseUrl + 'api/rss/' + query.queryKey[1])
   return response.data.items
 
 }

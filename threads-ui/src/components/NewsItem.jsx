@@ -24,7 +24,15 @@ const NewsItem = (props) => <div key={props.item._id} className="news-card">
 </div>
 
 NewsItem.propTypes = {
-  item: PropTypes.string.isRequired,
+  item: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
+    imgUrl: PropTypes.string,
+    description: PropTypes.string,
+    published: PropTypes.string.isRequired
+
+  }),
   newsSourceTitle: PropTypes.string.isRequired
 }
 

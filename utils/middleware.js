@@ -41,6 +41,7 @@ const errorHandler = (error, request, response) => {
     'error message',
     error.message
   )
+  console.log('test')
 
   if (error.name === 'CastError') {
 
@@ -66,7 +67,7 @@ const errorHandler = (error, request, response) => {
 
     return response.status(401).json({error: 'No access rights'})
 
-  } else if (error.name === 'AxiosError') {
+  } else if (error.name === 'AxiosError' || error.name === 'File not found') {
 
     return response.status(404).json({error: 'News source not available'})
 

@@ -1,17 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {useQuery} from '@tanstack/react-query'
+// import {useQuery} from '@tanstack/react-query'
 
-import {getNewsRSS} from '../requests'
+// import {getNewsRSS} from '../requests'
 
+// import Spinner from './Spinner'
 import NewsItem from './NewsItem'
 
 const NewsItems = (props) => {
 
+  console.log('newsSourceId2', props.newsSourceId)
+
+  /*
   const {isPending: isPendingNewsRSS, isError: isErrorNewsRSS, data: dataNewsRSS} = useQuery({
     queryKey: [
       'newsRSS',
-      props.newsSource.id
+      props.newsSourceId
     ],
     queryFn: getNewsRSS,
     retry: 1
@@ -19,7 +23,7 @@ const NewsItems = (props) => {
 
   if (isPendingNewsRSS) {
 
-    return <div>Ladataan...</div>
+    return <Spinner />
 
   }
 
@@ -29,18 +33,20 @@ const NewsItems = (props) => {
 
   }
 
-  const newsItems = dataNewsRSS
+  const newsItems = dataNewsRSS*/
 
   return <div>
     {
-      newsItems.map((newsItem) => <NewsItem key={newsItem.id} item={newsItem} newsSourceTitle={props.newsSource.title} />)
+      props.newsItems.map((newsItem) => <NewsItem key={newsItem._id} item={newsItem} newsSourceTitle={props.newsSource.title} />)
     }
   </div>
 
 }
 
 NewsItems.propTypes = {
-  newsSource: PropTypes.object.isRequired
+  newsSourceId: PropTypes.string.isRequired,
+  newsSource: PropTypes.object.isRequired,
+  newsItems: PropTypes.array.isRequired
 }
 
 export default NewsItems

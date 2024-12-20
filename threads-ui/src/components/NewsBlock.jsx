@@ -1,32 +1,19 @@
-import React from 'react'
-import {useQuery} from '@tanstack/react-query'
+import React, {useState} from 'react'
+import {useQuery, useQueryClient} from '@tanstack/react-query'
+import PropTypes from 'prop-types'
 
-import {getNewsSources} from '../requests'
+import {getNewsRSS} from '../requests'
 
 import Title from './Title'
 import NewsTabBar from './NewsTabBar'
 import NewsItems from './NewsItems'
 import Spinner from './Spinner'
 
-const NewsBlock = () => {
+const NewsBlock = (props) => {
 
-  const {isPending: isPendingNewsSource, isError: isErrorNewsSource, data: dataNewsSource} = useQuery({
-    queryKey: ['newsSources'],
-    queryFn: getNewsSources,
-    retry: 1
-  })
+  const [newsSourceId, setNewsSourceId] = useState(props.newsSources[0].id)
 
-  if (isPendingNewsSource) {
-
-    return <Spinner />
-
-  }
-
-  if (isErrorNewsSource) {
-
-    return <div>Tietojen haku epäonnistui.</div>
-
-  }
+  const queryClient = useQueryClient()
 
   const defineCategories = (sources) => {
 
@@ -42,23 +29,55 @@ const NewsBlock = () => {
 
   }
 
-  const newsSources = dataNewsSource.filter((item) => item.active)
-  let newsSource = newsSources[0]
-  const categories = defineCategories(newsSources)
+  const newsSource = props.newsSources[0]
+  //let newsSourceId = newsSource.id
+  const categories = defineCategories(props.newsSources)
   let category = categories[0]
+
+  const {isPending: isPendingNewsRSS, isError: isErrorNewsRSS, data: dataNewsRSS} = useQuery({
+    queryKey: [
+      'newsRSS',
+      newsSourceId
+    ],
+    queryFn: getNewsRSS,
+    retry: 1
+  })
+
+  if (isPendingNewsRSS) {
+
+    return <Spinner />
+
+  }
+
+  if (isErrorNewsRSS) {
+
+    return <div>Uutisten haku epäonnistui.</div>
+
+  }
+
+  const newsItems = dataNewsRSS
 
   const handleCategoryClick = (event) => {
 
+    // console.log('click category', newsSources.filter((newsSource) => newsSource.category === event.target.value)[0])
     category = event.target.value
-    newsSource = newsSources.find((newsSource) => newsSource.category === categories[event.target.value])
+    setNewsSourceId(props.newsSources.filter((newsSource) => newsSource.category === event.target.value)[0].id)
+    // newsSource = newsSources.filter((newsSource) => newsSource.category === event.target.value)[0]
+    // queryClient.invalidateQueries({queryKey: ['newsRSS']})
 
   }
 
   const handleNewsSourceClick = (event) => {
 
-    // newsSource = event.target.value
+    // console.log('click newssource', event.target.value, newsSources, newsSources.filter((source) => source.title === event.target.value))
+    setNewsSourceId(props.newsSources.filter((source) => source.title === event.target.value)[0].id)
+    // newsSource = newsSources.filter((newsSource) => newsSource.category === event.target.value)[0]
+    console.log('newsSourceId1', newsSourceId)
+    // queryClient.invalidateQueries({queryKey: ['newsRSS']})
 
   }
+
+  console.log('newsSourceId3', newsSourceId)
 
   return <>
     <Title
@@ -70,14 +89,20 @@ const NewsBlock = () => {
       categories={categories}
       handleCategoryClick={handleCategoryClick}
       newsSource={newsSource}
-      newsSources={newsSources}
+      newsSources={props.newsSources}
       handleNewsSourceClick={handleNewsSourceClick}
     />
     <NewsItems
+      newsSourceId={newsSourceId}
       newsSource={newsSource}
+      newsItems={newsItems}
     />
   </>
 
+}
+
+NewsBlock.propTypes = {
+  newsSources: PropTypes.array.isRequired
 }
 
 export default NewsBlock

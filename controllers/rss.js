@@ -135,10 +135,23 @@ rssRouter.get(
 
       } else if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
 
-        const rssJSON = convertXMLtoJSON(fs.readFileSync(
-          config.RSS_BASE_URL + newsSource.title + '.rss',
-          'utf8'
-        ))
+        let xmlFile
+
+        try {
+
+          xmlFile = fs.readFileSync(
+            config.RSS_BASE_URL + newsSource.title + '.rss',
+            'utf8'
+          )
+
+        } catch {
+
+          return response.status(404).json({error: 'News source not available'})
+          // next({error: {name: 'File not found'}})
+
+        }
+
+        const rssJSON = convertXMLtoJSON(xmlFile)
 
         const rssParsed = parseDatajs(rssJSON)
 
@@ -149,6 +162,7 @@ rssRouter.get(
             next(error)
 
           })
+
 
       } else {
 
