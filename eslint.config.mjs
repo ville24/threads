@@ -6,6 +6,7 @@ import stylisticJs from '@stylistic/eslint-plugin-js'
 export default [
   {ignores: [
     '*/dist/**',
+    'dist/**',
     'playwright-report/trace/**'
   ]},
   {files: ['**/*.{js,mjs,cjs,jsx}']},
