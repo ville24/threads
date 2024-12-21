@@ -1,8 +1,10 @@
-const metadata = require('gcp-metadata')
-const {OAuth2Client} = require('google-auth-library')
+// const metadata = require('gcp-metadata')
+
+// const {OAuth2Client} = require('google-auth-library')
 
 // const logger = require('./logger')
-const config = require('./config')
+
+// const config = require('./config')
 
 const requestLogger = (request, response, next) => {
 
@@ -87,75 +89,77 @@ const errorHandler = (error, request, response) => {
 
 }
 
-const oAuth2Client = new OAuth2Client()
-
-let aud
-
-const audience = async () => {
-
-  if (!aud && await metadata.isAvailable()) {
-
-    const project_number = await metadata.project('numeric-project-id')
-    const project_id = await metadata.project('project-id')
-
-    aud = '/projects/' + project_number + '/apps/' + project_id
-
-  }
-
-  return aud
-
-}
-
-const validateAssertion = async (assertion) => {
-
-  if (!assertion) {
-
-    return {}
-
-  }
-
-  const aud = await audience()
-
-  const response = await oAuth2Client.getIapPublicKeys()
-  const ticket = await oAuth2Client.verifySignedJwtWithCertsAsync(
-    assertion,
-    response.pubkeys,
-    aud,
-    ['https://cloud.google.com/iap']
-  )
-  const payload = ticket.getPayload()
-
-  return {
-    email: payload.email,
-    sub: payload.sub
-  }
-
-}
-
-const auth = async (request, response, next) => {
-
-  const assertion = request.header('X-Goog-IAP-JWT-Assertion')
-  try {
-
-    const info = await validateAssertion(assertion)
-    if (info.email !== config.USERNAME) {
-
-      return response.status(401).json({error: 'No access rights'})
-
-    }
-
-  } catch (error) {
-
-    return response.status(401).json({error})
-
-  }
-  next()
-
-}
+/*
+ *  const oAuth2Client = new OAuth2Client()
+ *
+ *  let aud
+ *
+ *  const audience = async () => {
+ *
+ *    if (!aud && await metadata.isAvailable()) {
+ *
+ *      const project_number = await metadata.project('numeric-project-id')
+ *      const project_id = await metadata.project('project-id')
+ *
+ *      aud = '/projects/' + project_number + '/apps/' + project_id
+ *
+ *    }
+ *
+ *    return aud
+ *
+ *  }
+ *
+ *  const validateAssertion = async (assertion) => {
+ *
+ *    if (!assertion) {
+ *
+ *      return {}
+ *
+ *    }
+ *
+ *    const aud = await audience()
+ *
+ *    const response = await oAuth2Client.getIapPublicKeys()
+ *    const ticket = await oAuth2Client.verifySignedJwtWithCertsAsync(
+ *      assertion,
+ *      response.pubkeys,
+ *      aud,
+ *      ['https://cloud.google.com/iap']
+ *    )
+ *    const payload = ticket.getPayload()
+ *
+ *    return {
+ *      email: payload.email,
+ *      sub: payload.sub
+ *    }
+ *
+ *  }
+ *
+ *  const auth = async (request, response, next) => {
+ *
+ *   const assertion = request.header('X-Goog-IAP-JWT-Assertion')
+ *    try {
+ *
+ *      const info = await validateAssertion(assertion)
+ *      if (info.email !== config.USERNAME) {
+ *
+ *        return response.status(401).json({error: 'No access rights'})
+ *
+ *      }
+ *
+ *    } catch (error) {
+ *
+ *      return response.status(401).json({error})
+ *
+ *    }
+ *    next()
+ *
+ *  }
+ */
 
 module.exports = {
   requestLogger,
   unknownEndpoint,
-  errorHandler,
-  auth
+  errorHandler// ,
+  // auth
 }
