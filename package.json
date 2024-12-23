@@ -10,7 +10,7 @@
     "test": "NODE_ENV=test jest --verbose --runInBand",
     "test-one": "NODE_ENV=test jest --verbose --runInBand -- rss_conf.test.js",
     "lint": "eslint .",
-    "test:e2e": "playwright test --project=chromium --project=firefox --ui",
+    "test:e2e": "playwright test --project=chromium --project=firefox",
     "test:e2e:report": "playwright show-report"
   },
   "repository": {
