@@ -8,7 +8,7 @@ describe(
       'News Threads can be opened',
       async ({page}) => {
 
-        await page.goto('')
+        await page.goto('http://localhost:3004')
         await expect(page.getByText('Threads')).toBeVisible()
         await expect(page.getByText('Julkaistu').first()).toBeVisible()
 
