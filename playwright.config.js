@@ -55,7 +55,7 @@ module.exports = defineConfig({
     {
       command: 'npm run start',
       port: 3004,
-      timeout: 120 * 1000,
+      timeout: 10 * 1000,
       reuseExistingServer: !process.env.CI
     }
 
