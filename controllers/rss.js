@@ -148,12 +148,15 @@ rssRouter.get(
 
         } catch {
 
+          console.log('getting xml file failed')
           return response.status(404).json({error: 'News source not available'})
           // next({error: {name: 'File not found'}})
 
         }
 
         const rssJSON = convertXMLtoJSON(xmlFile)
+
+        console.log('xmltojson')
 
         const rssParsed = parseDatajs(rssJSON)
 
