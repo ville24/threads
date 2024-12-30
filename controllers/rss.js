@@ -143,7 +143,7 @@ rssRouter.get(
 
           const filepath = config.RSS_BASE_URL
             ? config.RSS_BASE_URL
-            : '/home/runner/work/threads/threads/'
+            : '/home/runner/work/threads/threads/tests/news/'
 
           console.log(
             'filepath',
