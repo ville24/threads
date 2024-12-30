@@ -51,25 +51,25 @@ module.exports = defineConfig({
       use: {...devices['Desktop Safari']}
     }
   ],
-  /* webServer: [
-    {
-      command: 'npm run dev',
-      port: 3004,
-      timeout: 10 * 1000,
-      reuseExistingServer: !process.env.CI
-    }
 
-    /*
-     *,
-     *  {
-     *    command: 'npm run dev',
-     *    cwd: './threads-ui',
-     *    port: 5173,
-     *    timeout: 120 * 1000,
-     *    reuseExistingServer: !process.env.CI
-     *  }
-     *
-  ],*/
+  /*
+   *  webServer: [
+   *    {
+   *      command: 'npm run dev',
+   *      port: 3004,
+   *      timeout: 10 * 1000,
+   *      reuseExistingServer: !process.env.CI
+   *    },
+   *    {
+   *      command: 'npm run dev',
+   *      cwd: './threads-ui',
+   *      port: 5173,
+   *      timeout: 120 * 1000,
+   *      reuseExistingServer: !process.env.CI
+   *    }
+   *
+   *. ],
+   */
   use: {
 
     /* Base URL to use in actions like `await page.goto('/')`. */
