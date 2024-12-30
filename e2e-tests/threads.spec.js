@@ -9,7 +9,7 @@ describe(
       async ({page}) => {
 
         await page.goto('https://playwright.dev/')
-        await expect(page).toHaveTitle(/Playwriht/)
+        await expect(page).toHaveTitle(/Playwright/)
 
       }
     )
@@ -18,7 +18,7 @@ describe(
       'News Threads can be opened',
       async ({page}) => {
 
-        await page.goto('')
+        await page.goto('http://localhost:5173')
         await expect(page.getByText('Threads')).toBeVisible()
         await expect(page.getByText('Julkaistu').first()).toBeVisible()
 
