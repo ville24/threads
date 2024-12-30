@@ -5,6 +5,16 @@ describe(
   () => {
 
     test(
+      'has title',
+      async ({page}) => {
+
+        await page.goto('https://playwright.dev/')
+        await expect(page).toHaveTitle(/Playwright/)
+
+      }
+    )
+
+    test(
       'News Threads can be opened',
       async ({page}) => {
 
