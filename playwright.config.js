@@ -54,8 +54,8 @@ module.exports = defineConfig({
 
   webServer: [
     {
-      command: 'npm run dev',
-      port: 8081,
+      command: 'npm run start',
+      url: 'http://localhost:8081',
       timeout: 10 * 1000,
       reuseExistingServer: !process.env.CI,
       stdout: 'pipe'
