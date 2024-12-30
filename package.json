@@ -6,7 +6,7 @@
   "scripts": {
     "start": "NODE_ENV=production node index.js",
     "dev": "NODE_ENV=development nodemon index.js",
-    "build": "cd threads-ui && npm install && npm run build && cp -r dist ../../threads",
+    "build": "cd threads-ui && npm install && npm run build && cp -r dist/ ../dist",
     "test": "NODE_ENV=test jest --verbose --runInBand",
     "test-one": "NODE_ENV=test jest --verbose --runInBand -- rss_conf.test.js",
     "lint": "eslint .",

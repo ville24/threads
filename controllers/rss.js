@@ -135,8 +135,6 @@ rssRouter.get(
 
       } else if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
 
-        console.log('get XML file')
-
         let xmlFile
 
         try {
@@ -145,10 +143,6 @@ rssRouter.get(
             ? config.RSS_BASE_URL
             : '/home/runner/work/threads/threads/tests/news/'
 
-          console.log(
-            'filepath',
-            filepath
-          )
           xmlFile = fs.readFileSync(
             filepath + newsSource.title + '.rss',
             'utf8'
@@ -156,7 +150,6 @@ rssRouter.get(
 
         } catch {
 
-          console.log('getting xml file failed')
           return response.status(404).json({error: 'News source not available'})
           // next({error: {name: 'File not found'}})
 
@@ -164,11 +157,7 @@ rssRouter.get(
 
         const rssJSON = convertXMLtoJSON(xmlFile)
 
-        console.log('xmltojson')
-
         const rssParsed = parseDatajs(rssJSON)
-
-        console.log(rssParsed)
 
         rssParsed.validate()
           .then(() => response.json(rssParsed))
