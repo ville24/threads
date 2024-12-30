@@ -6,7 +6,7 @@ const config = require('./utils/config')
 
 const server = http.createServer(app)
 
-const PORT = process.env.PORT || config.PORT || 8081
+const PORT = process.env.PORT || config.PORT || 3004
 server.listen(
   PORT,
   () => {
