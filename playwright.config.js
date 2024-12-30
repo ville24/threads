@@ -54,29 +54,26 @@ module.exports = defineConfig({
 
   webServer: [
     {
-      command: 'npm run start',
+      command: 'npm run dev',
       port: 8081,
       timeout: 120 * 1000,
       reuseExistingServer: !process.env.CI,
       stdout: 'pipe'
+    },
+    {
+      command: 'npm run dev',
+      cwd: './threads-ui',
+      port: 5173,
+      timeout: 120 * 1000,
+      reuseExistingServer: !process.env.CI
     }
 
-  /*
-   *  ,
-   *    {
-   *      command: 'npm run dev',
-   *      cwd: './threads-ui',
-   *      port: 5173,
-   *      timeout: 120 * 1000,
-   *      reuseExistingServer: !process.env.CI
-   *    }
-   */
   ],
 
   use: {
 
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: 'http://localhost:8081',
+    baseURL: 'http://localhost:5173',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry'

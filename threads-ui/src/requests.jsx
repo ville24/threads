@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-// const baseUrl = 'http://localhost:3004/'
-const baseUrl = 'https://super-duper-parakeet-wjwqv65q7qhx49-8081.app.github.dev/'
+const baseUrl = 'http://localhost:8081/'
+// const baseUrl = 'https://super-duper-parakeet-wjwqv65q7qhx49-8081.app.github.dev/'
 
 export const getNewsSources = async () => {
 
