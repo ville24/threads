@@ -141,6 +141,10 @@ rssRouter.get(
 
         try {
 
+          console.log(
+            'filename',
+            config.RSS_BASE_URL + newsSource.title + '.rss'
+          )
           xmlFile = fs.readFileSync(
             config.RSS_BASE_URL + newsSource.title + '.rss',
             'utf8'
