@@ -141,12 +141,16 @@ rssRouter.get(
 
         try {
 
+          const filepath = config.RSS_BASE_URL
+            ? config.RSS_BASE_URL
+            : '/home/runner/work/threads/threads'
+
           console.log(
-            'filename',
-            config.RSS_BASE_URL + newsSource.title + '.rss'
+            'filepath',
+            filepath
           )
           xmlFile = fs.readFileSync(
-            config.RSS_BASE_URL + newsSource.title + '.rss',
+            filepath + newsSource.title + '.rss',
             'utf8'
           )
 
