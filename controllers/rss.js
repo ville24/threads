@@ -155,6 +155,8 @@ rssRouter.get(
 
         const rssParsed = parseDatajs(rssJSON)
 
+        console.log(rssParsed)
+
         rssParsed.validate()
           .then(() => response.json(rssParsed))
           .catch((error) => {
