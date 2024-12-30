@@ -48,7 +48,7 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright tests
-        run: npx run playwright test --project=chromium --project=firefox
+        run: npx playwright test --project=chromium --project=firefox
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
