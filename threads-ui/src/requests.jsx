@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-const port = import.meta.env.VITE_APP_PORT
-  ? import.meta.env.VITE_APP_PORT
+const port = import.meta.env.DEV
+  ? 8081
   : 80
 
 console.log(import.meta.env.VITE_APP_PORT)
