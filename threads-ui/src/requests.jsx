@@ -1,14 +1,8 @@
 import axios from 'axios'
 
-const port = import.meta.env.DEV
-  ? 8081
-  : 80
-
-console.log(import.meta.env.VITE_APP_PORT)
-
-const baseUrl = 'http://localhost:' + port + '/'
-
-// const baseUrl = 'http://localhost:8081/'
+const baseUrl = import.meta.env.DEV
+  ? 'http://localhost:8081/'
+  : '/'
 
 // const baseUrl = 'https://super-duper-parakeet-wjwqv65q7qhx49-8081.app.github.dev/'
 
