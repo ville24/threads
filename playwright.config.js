@@ -59,14 +59,18 @@ module.exports = defineConfig({
       timeout: 120 * 1000,
       reuseExistingServer: !process.env.CI,
       stdout: 'pipe'
-    },
-    {
-      command: 'npm run dev',
-      cwd: './threads-ui',
-      port: 5173,
-      timeout: 120 * 1000,
-      reuseExistingServer: !process.env.CI
     }
+
+    /*
+     *  ,
+     *  {
+     *    command: 'npm run dev',
+     *    cwd: './threads-ui',
+     *    port: 5173,
+     *    timeout: 120 * 1000,
+     *    reuseExistingServer: !process.env.CI
+     *  }
+     */
 
   ],
 
