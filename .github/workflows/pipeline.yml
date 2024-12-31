@@ -27,7 +27,7 @@ jobs:
       - run: npm install
       - run: npm run lint
       - run: npm run test
-      - run: npm run build2
+      - run: npm run build
 
       - name: The build failed
         uses: stegzilla/discord-notify@v2
@@ -102,17 +102,17 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         DEFAULT_BUMP: patch
-  
-# deployment_succeeded:
-#   needs: [tag_release]
-#   runs-on: ubuntu-latest
-#   steps:
-#     - name: The deployment succeeded
-#       uses: stegzilla/discord-notify@v2
-#       if: ${{ env.CONDITION == 'true' && github.event_name == 'push' && success() }}
-#       with:
-#         webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
-#         title: A new version of News Threads deployed
-#         message: "to https://threads-442414.lm.r.appspot.com/ by ${{ env.USER }} \n Severity: Informational"
-#         include_image: false
-#         colour: "#00FF00"
+
+  deployment_succeeded:
+    needs: [tag_release]
+    runs-on: ubuntu-latest
+    steps:
+      - name: The deployment succeeded
+        uses: stegzilla/discord-notify@v2
+        if: ${{ env.CONDITION == 'true' && github.event_name == 'push' && success() }}
+        with:
+          webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
+          title: A new version of News Threads deployed
+          message: "to https://threads-442414.lm.r.appspot.com/ by ${{ env.USER }} \n Severity: Informational"
+          include_image: false
+          colour: "#00FF00"
