@@ -1,6 +1,12 @@
 import axios from 'axios'
 
-const baseUrl = '/'
+const port = import.meta.env.VITE_APP_PORT
+  ? import.meta.env.VITE_APP_PORT
+  : 80
+
+console.log(import.meta.env.VITE_APP_PORT)
+
+const baseUrl = 'http://localhost:' + port + '/'
 
 // const baseUrl = 'http://localhost:8081/'
 
