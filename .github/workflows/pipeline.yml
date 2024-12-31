@@ -27,17 +27,17 @@ jobs:
       - run: npm install
       - run: npm run lint
       - run: npm run test
-      - run: npm run build
+      - run: npm run build2
 
-#     - name: The build failed
-#       uses: stegzilla/discord-notify@v2
-#       if: ${{ failure() }}
-#       with:
-#         webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
-#         title: News Threads build failed
-#         message:  "Commit in pull request ${{ github.event.pull_request.html_url }} by ${{ env.USER }} broke the build. \n Severity: Error"
-#         include_image: false
-#         colour: "#FF0000"
+      - name: The build failed
+        uses: stegzilla/discord-notify@v2
+        if: ${{ failure() }}
+        with:
+          webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
+          title: News Threads build failed
+          message:  "Commit in pull request ${{ github.event.pull_request.html_url }} by ${{ env.USER }} broke the build. \n Severity: Error"
+          include_image: false
+          colour: "#FF0000"
 
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
