@@ -64,27 +64,29 @@ jobs:
       id-token: 'write'
 
     steps:
-    - uses: 'actions/checkout@v4'
+      - name: Trigger deployment
+        if: ${{ env.CONDITION == 'true' && github.event_name == 'push' }}
+        uses: 'actions/checkout@v4'
 
-    - id: 'auth'
-      uses: 'google-github-actions/auth@v2'
-      with:
-        credentials_json: ${{ secrets.CREDENTIALS_JSON }}
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json: ${{ secrets.CREDENTIALS_JSON }}
 
-    - id: 'deploy'
-      uses: 'google-github-actions/deploy-appengine@v2'
+      - id: 'deploy'
+        uses: 'google-github-actions/deploy-appengine@v2'
 
-    - id: 'test_with_curl'
-      run: 'curl "${{ steps.deploy.outputs.version_url }}/health"'
-    
-    - id: 'show_output'
-      run: |
-        echo ${{ steps.deploy.outputs.name }}
-        echo ${{ steps.deploy.outputs.runtime }}
-        echo ${{ steps.deploy.outputs.service_account_email }}
-        echo ${{ steps.deploy.outputs.serving_status }}
-        echo ${{ steps.deploy.outputs.version_id }}
-        echo ${{ steps.deploy.outputs.version_url }}
+      - id: 'test_with_curl'
+        run: 'curl "${{ steps.deploy.outputs.version_url }}/health"'
+      
+      - id: 'show_output'
+        run: |
+          echo ${{ steps.deploy.outputs.name }}
+          echo ${{ steps.deploy.outputs.runtime }}
+          echo ${{ steps.deploy.outputs.service_account_email }}
+          echo ${{ steps.deploy.outputs.serving_status }}
+          echo ${{ steps.deploy.outputs.version_id }}
+          echo ${{ steps.deploy.outputs.version_url }}
 
   tag_release:
     needs: [deploy_to_google_app_engine]
