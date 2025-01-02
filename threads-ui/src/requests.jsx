@@ -4,8 +4,6 @@ const baseUrl = import.meta.env.DEV
   ? 'http://localhost:8081/'
   : '/'
 
-// const baseUrl = 'https://super-duper-parakeet-wjwqv65q7qhx49-8081.app.github.dev/'
-
 export const getNewsSources = async () => {
 
   const response = await axios.get(baseUrl + 'api/conf?type=newsSource')
